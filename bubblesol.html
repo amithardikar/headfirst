@@ -1,0 +1,32 @@
+
+var scores = [60, 50, 60, 58, 54, 54, 58, 50, 52, 54, 48, 69, 34, 55, 51, 52, 44, 51, 69, 64, 66, 55, 52, 61, 46, 31, 57, 52, 44, 18, 41, 53, 55, 61, 51, 44];
+
+for(i=0;i<scores.length;i++)
+{
+console.log("bubble solution #"+i+" scores :  "+scores[i]);
+
+}
+var btaste=scores.length;
+console.log(btaste);
+var highScore=0;
+var indexH=[];
+for(j=0;j<scores.length;j++)
+{
+console.log("scores[j] contains "+scores[j]);
+	if(scores[j]>highScore)
+  {
+  	highScore=scores[j];
+    
+  }
+  }
+  
+  for(k=0;k<scores.length;k++)
+{
+	if(scores[k]===highScore)
+  {
+  	indexH.push(k);
+  }
+
+}
+alert(indexH);
+alert(highScore);
