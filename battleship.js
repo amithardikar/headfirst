@@ -19,7 +19,7 @@ var model = {
   numShips: 3,
   shipsSunk: 0,
   shipLength: 3,
-  ships: [{
+ /* ships: [{
     locations: ["06", "16", "26"],
     hits: ["", "", ""]
   }, {
@@ -28,7 +28,55 @@ var model = {
   }, {
     locations: ["10", "11", "12"],
     hits: ["", "", ""]
-  }],
+  }],*/
+  ships: [ { locations: [0, 0, 0], hits: ["", "", ""] },
+ { locations: [0, 0, 0], hits: ["", "", ""] },
+ { locations: [0, 0, 0], hits: ["", "", ""] } ],
+ 
+ generateShipLocations: function() {
+ var locations;
+ for (var i = 0; i < this.numShips; i++) {
+ do {
+ locations = this.generateShip();
+ } while (this.collision(locations));
+ this.ships[i].locations = locations;
+ }
+},
+  
+  generateShip: function() {
+ var direction = Math.floor(Math.random() * 2);
+ var row, col;
+ if (direction === 1) {
+ row = Math.floor(Math.random() * this.boardSize);
+ col = Math.floor(Math.random() * (this.boardSize - this.shipLength));
+ } else {
+ row = Math.floor(Math.random() * (this.boardSize - this.shipLength));
+ col = Math.floor(Math.random() * this.boardSize);
+ }
+ var newShipLocations = [];
+ for (var i = 0; i < this.shipLength; i++) {
+ if (direction === 1) {
+ newShipLocations.push(row + "" + (col + i));
+ } else {
+ newShipLocations.push((row + i) + "" + col);
+}
+ }
+ return newShipLocations;
+  
+  },
+  
+  collision: function(locations) {
+ for (var i = 0; i < this.numShips; i++) {
+ var ship = model.ships[i];
+ for (var j = 0; j < locations.length; j++) {
+ if (ship.locations.indexOf(locations[j]) >= 0) {
+ return true;
+ }
+ }
+ }
+ return false;
+},
+  
   fire: function(guess) {
     for (var i = 0; i < this.numShips; i++) {
       var ship = this.ships[i];//first value of ship is 0 bcoz i starts from 0
@@ -55,6 +103,7 @@ var model = {
     view.displayMessage("<h1>You missed.</h1>");
     return false;
   },
+  
   isSunk: function(ship) {
     for (var i = 0; i < this.shipLength; i++) {
       if (ship.hits[i] !== "hit") {
@@ -102,6 +151,9 @@ var controller = {
 function init() {
  var fireButton = document.getElementById("fireButton");
  fireButton.onclick = handleFireButton;
+ 
+  var guessInput = document.getElementById("guessInput");
+ guessInput.onkeypress = handleKeyPress;
 }
 function handleFireButton() {
 var guessInput = document.getElementById("guessInput");
@@ -110,4 +162,18 @@ var guessInput = document.getElementById("guessInput");
  guessInput.value = "";
 
 }
+function handleKeyPress(e) {
+	var fireButton = document.getElementById("fireButton");
+
+	
+	e = e || window.event;
+
+	if (e.keyCode === 13) {
+		fireButton.click();
+		return false;
+	}
+}
+model.generateShipLocations();
+var guessInput = document.getElementById("guessInput");
+	guessInput.onkeypress = handleKeyPress;
 window.onload = init;
