@@ -1,0 +1,40 @@
+<html>
+<body>
+<Script>
+
+var myVar = setInterval(function() {
+  ticker()
+}, 1000);
+
+var tick = true;
+
+function ticker() {
+  if (tick) {
+    var a = document.getElementById("demo");
+    a.innerHTML = "tick";
+    tick = false;
+  } else {
+    var a = document.getElementById("demo");
+    a.innerHTML = "tock";
+
+
+    tick = true;
+  }
+}
+
+function myStopFunction() {
+  clearInterval(myVar);
+  }
+
+
+
+
+</script>
+
+<p id="demo"></p>
+<button onclick="myStopFunction()">clickme
+</button>
+
+
+</body>
+</html>
