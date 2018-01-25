@@ -66,8 +66,8 @@ function colsold(col1, col2) {
     return -1;
 
 }
-products.sort(colsold);//after applying sort method products array get sorted
-//in printproducts parameter products which has passed is sorted array of products
+products.sort(colsold);//after applying sort method, products array get sorted
+//in function printproducts parameter (products) which has passed is sorted array elements of products
 function printProducts(products) {
   for (var i = 0; i < products.length; i++) {
     console.log("Name: " + products[i].name +
@@ -76,4 +76,4 @@ function printProducts(products) {
       ", Sold: " + products[i].sold);
   }
 }
-printProducts(products);//here sorted means updated products array in pass as argument
+printProducts(products);//here product means updated products array in pass as argument
